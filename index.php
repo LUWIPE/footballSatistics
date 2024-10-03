@@ -25,32 +25,32 @@ include("includes/nav.php"); // Inkluderer navigationsmenuen i toppen
 ?>
 <div class="container mt-3">
     <div class="row justify-content-center">
-        <div class="col-11 col-md-8">
+        <div class="col-11">
             <div id="carouselExample" class="carousel slide">
                 <div class="carousel-inner">
                     <a href="matches.php">
                         <div class="carousel-item active bg-black rounded-3">
-                            <img src="images/indexHero.jpeg" class="d-block w-100 rounded-3 opacity-50"
+                            <img src="images/matchesHero.png" class="d-block w-100 rounded-3 opacity-25"
                                  alt="...">
-                            <div class="position-absolute top-50 start-50 translate-middle text-secondary fs-1">Kampe
+                            <div class="position-absolute top-50 start-50 translate-middle text-primary fs-1">KAMPE
                             </div>
                         </div>
                     </a>
                     <a href="statistics.php">
                         <div class="carousel-item bg-black rounded-3">
-                            <img src="images/indexHero.jpeg" class="d-block w-100 rounded-3 opacity-50"
+                            <img src="images/statisticsHero.png" class="d-block w-100 rounded-3 opacity-25"
                                  alt="...">
-                            <div class="position-absolute top-50 start-50 translate-middle text-secondary fs-1">
-                                Statistikker
+                            <div class="position-absolute top-50 start-50 translate-middle text-primary fs-1">
+                                STATISTIKKER
                             </div>
                         </div>
                     </a>
                     <a href="profile.php">
                         <div class="carousel-item bg-black rounded-3">
-                            <img src="images/indexHero.jpeg" class="d-block w-100 rounded-3 opacity-50"
+                            <img src="images/profileHero.png" class="d-block w-100 rounded-3 opacity-25"
                                  alt="...">
-                            <div class="position-absolute top-50 start-50 translate-middle text-secondary fs-1">Min
-                                Profil
+                            <div class="position-absolute top-50 start-50 translate-middle text-primary fs-1">MIN
+                                PROFIL
                             </div>
                         </div>
                     </a>
@@ -80,7 +80,7 @@ include("includes/nav.php"); // Inkluderer navigationsmenuen i toppen
                     <ul>
                         <?php $matches = $db->sql("SELECT * FROM matches");
                         foreach ($matches as $match) { ?>
-                            <li class="text-secondary"><a class="text-secondary" href="match.php?matchId=<?php echo $match->matchHome?>"><?php echo $match->matchHome?> VS <?php echo $match->matchAway?></a></li>
+                            <li class="text-secondary"><a class="text-secondary" href="match.php?matchId=<?php echo $match->matchId?>"><?php echo $match->matchHome?> VS <?php echo $match->matchAway?></a></li>
                         <?php } ?>
                     </ul>
                 </div>
@@ -93,7 +93,10 @@ include("includes/nav.php"); // Inkluderer navigationsmenuen i toppen
                 </div>
                 <div class="card-body">
                     <ul>
-                        <?php ?>
+                        <?php $players = $db->sql("SELECT * FROM players");
+                        foreach ($players as $player) { ?>
+                            <li class="text-secondary"><a class="text-secondary" href="match.php?matchId=<?php echo $player->playerId?>"><?php echo $player->playerName?></a></li>
+                        <?php } ?>
                     </ul>
                 </div>
             </div>
