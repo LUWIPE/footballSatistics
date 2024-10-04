@@ -32,7 +32,7 @@ include("includes/nav.php"); // Inkluderer navigationsmenuen i toppen
                         <div class="carousel-item active bg-black rounded-3">
                             <img src="images/matchesHero.png" class="d-block w-100 rounded-3 opacity-25"
                                  alt="...">
-                            <div class="position-absolute top-50 start-50 translate-middle text-primary fs-1">KAMPE
+                            <div class="position-absolute top-50 start-50 translate-middle text-secondary fs-1">KAMPE
                             </div>
                         </div>
                     </a>
@@ -40,7 +40,7 @@ include("includes/nav.php"); // Inkluderer navigationsmenuen i toppen
                         <div class="carousel-item bg-black rounded-3">
                             <img src="images/statisticsHero.png" class="d-block w-100 rounded-3 opacity-25"
                                  alt="...">
-                            <div class="position-absolute top-50 start-50 translate-middle text-primary fs-1">
+                            <div class="position-absolute top-50 start-50 translate-middle text-secondary fs-1">
                                 STATISTIKKER
                             </div>
                         </div>
@@ -49,7 +49,7 @@ include("includes/nav.php"); // Inkluderer navigationsmenuen i toppen
                         <div class="carousel-item bg-black rounded-3">
                             <img src="images/profileHero.png" class="d-block w-100 rounded-3 opacity-25"
                                  alt="...">
-                            <div class="position-absolute top-50 start-50 translate-middle text-primary fs-1">MIN
+                            <div class="position-absolute top-50 start-50 translate-middle text-secondary fs-1">MIN
                                 PROFIL
                             </div>
                         </div>
@@ -77,12 +77,11 @@ include("includes/nav.php"); // Inkluderer navigationsmenuen i toppen
                     <h3 class="text-secondary">Seneste kampe</h3>
                 </div>
                 <div class="card-body">
-                    <ul>
-                        <?php $matches = $db->sql("SELECT * FROM matches");
-                        foreach ($matches as $match) { ?>
-                            <li class="text-secondary"><a class="text-secondary" href="match.php?matchId=<?php echo $match->matchId?>"><?php echo $match->matchHome?> VS <?php echo $match->matchAway?></a></li>
-                        <?php } ?>
-                    </ul>
+                    <?php $matches = $db->sql("SELECT * FROM matches");
+                    foreach ($matches as $match) { ?>
+                        <a class="text-secondary"
+                           href="match.php?matchId=<?php echo $match->matchId ?>"><p><?php echo $match->matchName ?></p></a>
+                    <?php } ?>
                 </div>
             </div>
         </div>
@@ -92,12 +91,11 @@ include("includes/nav.php"); // Inkluderer navigationsmenuen i toppen
                     <h3 class="text-secondary">Nye profiler</h3>
                 </div>
                 <div class="card-body">
-                    <ul>
-                        <?php $players = $db->sql("SELECT * FROM players");
-                        foreach ($players as $player) { ?>
-                            <li class="text-secondary"><a class="text-secondary" href="match.php?matchId=<?php echo $player->playerId?>"><?php echo $player->playerName?></a></li>
-                        <?php } ?>
-                    </ul>
+                    <?php $players = $db->sql("SELECT * FROM players");
+                    foreach ($players as $player) { ?>
+                        <a class="text-secondary"
+                           href="player.php?playerId=<?php echo $player->playerId ?>"><p><?php echo $player->playerName ?></p></a>
+                    <?php } ?>
                 </div>
             </div>
         </div>
