@@ -20,7 +20,7 @@ $theme-colors: map-merge($theme-colors, $custom-colors);
 
 // 5. Du kan lave styling her...
 
-@media (min-width:768px){
+@media (min-width:992px){
 	footer{
 		display:none
 	}

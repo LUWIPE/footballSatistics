@@ -3,6 +3,13 @@
 require "settings/init.php";
 
 $playerId = $_GET['playerId'];
+
+if(!empty($_GET['delete']) && $_GET['delete'] == '1' && !empty($_GET['statId'])) {
+    $db->sql("DELETE FROM stats WHERE statId = :statId", [":statId" => $_GET['statId']]);
+    header("Location: profile.php?playerId=$playerId");
+    exit();
+}
+
 $player = $db->sql("SELECT * FROM players WHERE playerId = :playerId", [":playerId" => $playerId]);
 $player = $player[0];
 ?>
@@ -36,7 +43,7 @@ include("includes/nav.php"); // Inkluderer navigationsmenuen i toppen
                         - <?php echo $player->playerClub ?> </h2>
                 </div>
                 <div class="col-3 d-flex justify-content-end">
-                    <a href="profileEdit.php?<?php echo $player->playerId ?>" class="text-secondary text-decoration-underline text-end m-1">Rediger
+                    <a href="profileEdit.php?playerId=<?php echo $player->playerId ?>" class="text-secondary text-decoration-underline text-end m-1">Rediger
                         profil</a>
                 </div>
             </div>
@@ -98,8 +105,8 @@ include("includes/nav.php"); // Inkluderer navigationsmenuen i toppen
                     <h4>Røde Kort: <?php echo $totalReds; ?></h4>
 
                 </div>
-                <div class="col-4">
-                    <img src="" alt="">
+                <div class="col-4 d-flex justify-content-end align-items-center">
+                    <img class="img-fluid" src="images/<?php echo $player->playerImg ?>" alt="<?php echo $player->playerName ?>">
                 </div>
             </div>
         </div>
@@ -110,7 +117,7 @@ include("includes/nav.php"); // Inkluderer navigationsmenuen i toppen
                         <h2 class="text-secondary m-1">Statistikker</h2>
                     </div>
                     <div class="col-3 d-flex justify-content-end">
-                        <a href="profileStatsEdit.php" class="text-secondary text-decoration-underline text-end m-1">Tilføj
+                        <a href="profileStatsEdit.php?playerId=<?php echo $player->playerId ?>" class="text-secondary text-decoration-underline text-end m-1">Tilføj
                             statistik</a>
                     </div>
                 </div>
@@ -120,6 +127,7 @@ include("includes/nav.php"); // Inkluderer navigationsmenuen i toppen
                             <thead>
                             <tr>
                                 <th class="bg-secondary">Kamp</th>
+                                <th class="bg-secondary">Dato</th>
                                 <th class="bg-secondary">Position</th>
                                 <th class="bg-secondary">Minutter</th>
                                 <th class="bg-secondary">Mål</th>
@@ -129,16 +137,18 @@ include("includes/nav.php"); // Inkluderer navigationsmenuen i toppen
                                 <th class="bg-secondary">Indskiftet</th>
                                 <th class="bg-secondary">Udskiftet</th>
                                 <th class="bg-secondary"></th>
+                                <th class="bg-secondary"></th>
                             </tr>
                             </thead>
                             <tbody>
                             <?php
                             $stats = $db->sql("SELECT * FROM stats 
                                INNER JOIN matches ON statMatchId = matchId 
-                               WHERE statPlayerId = :playerId", [":playerId" => $playerId]);
+                               WHERE statPlayerId = :playerId ORDER BY matchDate DESC ", [":playerId" => $playerId]);
                             foreach ($stats as $stat) { ?>
                                 <tr>
                                     <td class="bg-secondary"><?php echo $stat->matchName ?></td>
+                                    <td class="bg-secondary"><?php echo date('j-m-Y', strtotime ($stat->matchDate))?></td>
                                     <td class="bg-secondary"><?php echo $stat->statPosition ?></td>
                                     <td class="bg-secondary"><?php echo $stat->statMinutes ?></td>
                                     <td class="bg-secondary"><?php echo $stat->statGoals ?></td>
@@ -147,9 +157,10 @@ include("includes/nav.php"); // Inkluderer navigationsmenuen i toppen
                                     <td class="bg-secondary"><?php echo $stat->statReds ?></td>
                                     <td class="bg-secondary"><?php echo $stat->statSubIn ?></td>
                                     <td class="bg-secondary"><?php echo $stat->statSubOut ?></td>
-                                    <td class="bg-secondary"><a class="text-primary text-end"
-                                                                href="match.php?matchId=<?php echo $stat->matchId ?>">Se
-                                            kamp</a></td>
+                                    <td class="bg-secondary"><a class="text-primary text-end" href="match.php?matchId=<?php echo $stat->matchId ?>">Se kamp</a></td>
+                                    <td class="bg-secondary"><a class="text-primary text-end deleteLink"
+                                                                href="profile.php?delete=1&statId=<?php echo $stat->statId ?>&playerId=<?php echo $player->playerId ?>">Slet Statistik</a>
+                                    </td>
                                 </tr>
                             <?php } ?>
                             </tbody>
@@ -169,6 +180,19 @@ include("includes/nav.php"); // Inkluderer navigationsmenuen i toppen
 </footer>
 
 <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+
+    const deleteLinks = document.querySelectorAll('.deleteLink')
+    deleteLinks.forEach(function (link) {
+        link.addEventListener('click', function (event) {
+            event.preventDefault();
+            if (confirm("Er du sikker på, at du vil fjerne denne statistik?")) {
+                window.location.href = this.href;
+            }
+        });
+    });
+
+</script>
 </body>
 </html>
 

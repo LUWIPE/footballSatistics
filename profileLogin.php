@@ -45,7 +45,7 @@ require "settings/init.php";
                                 <input type="password" class="form-control border-primary" id="exampleInputPassword1">
                             </div>
                             <div class="d-flex justify-content-end">
-                                <a href="profile.php?playerId=1" class="btn btn-primary">Log In</a>
+                                <a href="profile.php?playerId=2" class="btn btn-primary">Log In</a>
                             </div>
                         </form>
                     </div>

@@ -16,7 +16,7 @@
                     <a class="nav-link text-secondary text-end" href="statistics.php">Statistikker</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-secondary text-end" href="profile.php">Min Profil</a>
+                    <a class="nav-link text-secondary text-end" href="profileLogin.php">Min Profil</a>
                 </li>
             </ul>
         </div>

@@ -31,6 +31,9 @@ include("includes/nav.php"); // Inkluderer navigationsmenuen i toppen
     <div class="row justify-content-center">
         <div class="col-11 rounded-3 border border-primary">
             <div class="row justify-content-around bg-primary rounded-3">
+                <div class="col-12 border-bottom">
+                    <h3 class="text-secondary m-1"><?php echo $match->matchDate ?></h3>
+                </div>
                 <div class="col-5 d-flex justify-content-center align-items-center">
                     <h1 class="text-secondary"><?php echo $match->matchHome ?></h1>
                 </div>
@@ -66,7 +69,7 @@ include("includes/nav.php"); // Inkluderer navigationsmenuen i toppen
                                WHERE statMatchId = :matchId", [":matchId" => $matchId]);
                         foreach ($stats as $stat) { ?>
                             <tr>
-                                <td class="bg-secondary"><?php echo $stat->playerName ?></td>
+                                <td class="bg-secondary text-center"><?php echo $stat->playerName ?></td>
                                 <td class="bg-secondary"><?php echo $stat->playerClub ?></td>
                                 <td class="bg-secondary"><?php echo $stat->statMinutes ?></td>
                                 <td class="bg-secondary"><?php echo $stat->statGoals ?></td>
