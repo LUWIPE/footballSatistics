@@ -95,7 +95,7 @@ include("includes/nav.php"); // Inkluderer navigationsmenuen i toppen
 
                 </div>
                 <div class="col-4 d-flex justify-content-end align-items-center">
-                    <img class="img-fluid" src="images/<?php echo $player->playerImg ?>" alt="<?php echo $player->playerName ?>">
+                    <img class="img-fluid rounded-3 shadow" src="images/<?php echo $player->playerImg ?>" alt="<?php echo $player->playerName ?>">
                 </div>
             </div>
         </div>
